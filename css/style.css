@@ -1,0 +1,390 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Courier New', Courier, monospace;
+    --main: #B5D8B6;
+    --btn-hover: #D5E1D6;
+    --bg: #d7f5d8;
+    
+}
+
+body{
+    background-color: var(--bg);
+    
+}
+
+.nav{
+    height: 5em;
+    width: 100vw;
+    background-color: var(--main);
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-options{
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav-options a{
+    padding: 10px 10px;
+    text-decoration: none;
+    font-size: 2em;
+    color: black;
+}
+
+.nav-options a:hover{
+    background-color: var(--btn-hover);
+    border-radius: 20px;
+}
+
+main{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;  
+}
+
+.welcome-img{
+    width: 50%;
+    
+}
+
+.welcome-img img{
+    width: 45%; 
+    margin-left: 33%;
+    animation: beaker-animate 3s infinite;
+    
+}
+
+.welcome-section{
+    padding-left: 15em;
+    max-width: 650px;
+}
+
+h1{
+    font-size: 75px;
+    font-weight: 700;
+    padding-bottom: 20px;
+}
+
+p{
+    font-size: 25px;
+}
+
+.introduction{
+    padding-bottom: 40px;
+}
+
+.welcome-section a{
+    background-color: #B5D8B6;
+    color: black;
+    padding: 20px 80px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 10px;
+    font-size: 30px;
+    box-shadow: 1px 3px 11px 1px  rgba(0,0,0,0.3);;
+}
+
+.welcome-section a:hover{
+    background-color: #D5E1D6;
+    
+}
+
+/* animation for the beaker */
+@keyframes beaker-animate{
+    0%{
+        transform: rotate(-10deg) ;
+    }
+    50%{
+        transform: rotate(10deg);
+    }
+    100%{
+        transform: rotate(-10deg);
+    }
+}
+
+@media (max-width: 820px) {
+    .nav{
+        height: 4em;
+        display: flex;
+        justify-content: center;
+    }
+    .nav-options{
+        width: 100%;
+    }
+}
+
+h2{
+    font-size: 75px;
+    font-weight: 700;
+    padding-bottom: 20px; 
+}
+
+/* Footer */
+.footer{
+    /*position: fixed;*/
+    bottom: 0;
+    width: 100vw;
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4em;
+    background-color: var(--main);
+}
+
+.foot-content{
+    font-size: 20px;
+}
+
+/*Read CSV page*/
+.upload-section h2{
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.upload-section p{
+    text-align: center;
+}
+
+.upload-section div{
+    margin: auto;
+    width: 30%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+@media(max-width: 992px){
+    .upload-section div{
+        width: 60%;
+    }
+}
+
+.upload-section #file-input {
+    display: none;
+}
+
+.upload-section label {
+    display: block;
+    cursor: pointer;
+    padding: 20px 40px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 30px;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    margin-bottom: 10px;  
+    margin-left: auto;
+    margin-right:auto;
+}
+
+.upload-section label:hover {
+    background-color: #0056b3;
+}
+.upload-section #file-input[type="files"] {
+    display: none;
+}
+.upload-section .data-section {
+    display: none;
+}
+.upload-section .button-container {
+    margin-top: 20px;
+}
+
+
+/*Display Graph page*/
+
+.display-graph-section h2{
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.display-graph-section p{
+    text-align: center;
+}
+
+.display-graph-section div{
+    margin:auto;
+    width:50%;
+    margin-top:50px;
+    margin-bottom: 50px;
+}
+
+@media(max-width: 992px){
+    .display-graph-section div{
+        width: 80%;
+    }
+}
+
+.display-graph-section input#displayattr{
+    padding: 10px 12px;
+    font-size: 30px;
+    line-height: 30px;
+    background-position: right 8px center;
+    border: 2px solid;
+    float: left;
+    margin-top:20px;
+    margin-bottom:20px;
+
+}
+
+.display-graph-section button{
+    cursor: pointer;
+    padding: 20px 40px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 30px;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.display-graph-section button#analyze-mult-graphs-button{
+    float: right;
+}
+
+.display-graph-section button#back-display-option{
+    float:right;
+}
+
+
+.display{
+    width: 80%;
+    margin: auto;
+    padding-top: 5vh;
+}
+
+.display h2{
+    font-size: 30px;
+}
+
+
+/*Display Option page*/
+
+.card-outer{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 5vh;
+    flex-wrap: wrap;
+}
+
+.card-container{
+    width: 30%;  
+    overflow: hidden;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--main);
+    margin-bottom: 25px;
+}
+
+.card-image{
+    width: 90%;
+    height: 70%;
+    padding: 1rem 0 1.5rem 0;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.card-container h1{
+    font-size: 35px;
+}
+
+.card-container:hover{
+    box-shadow: 0px 10px 8px #999;
+    background-color: var(--btn-hover);
+}
+
+.card-container p{
+    width: 80%;
+    padding-bottom: 2rem;
+}
+
+.card-link{
+    text-decoration: none;
+    color: black;
+}
+
+/*responsive to different screen size*/
+@media (max-width:768px) {
+    .card-container{
+        width: 45%;
+    }
+}
+
+@media (max-width:675px) {
+    .card-container{
+        width: 100%;
+    }
+    .card-outer{
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/*Document Page*/
+
+.text{
+    margin: auto;
+    width: 70vw;
+    margin-top: 5vh;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: var(--main);
+}
+
+.text h2{
+    font-size: 30px;
+}
+
+ul{
+    padding: 30px;
+    font-size: 25px;
+}
+
+ul li{
+    padding-bottom: 15px;
+}
+
+
+/*About Us Section*/
+.about-container{
+    margin: auto;
+    width: 70vw;
+    margin-top: 5vh;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: var(--main);
+}
+
+.about-container h2{
+    font-size: 30px;
+}
+
+.about-container h3{
+    font-size: 25px;
+}
+
+.team{
+    margin: auto;
+    width: 90%;
+}
+
+.team-member{
+    padding-top: 20px;
+    
+}

@@ -1,0 +1,15 @@
+<div class="upload-section">
+    <h2>Upload CSV folder here</h2>
+    <p> Please select folder that contain CSV files to analyze</p>
+    <div>
+        <label for="file-input" id="choose-file-btn" >Choose Folder with CSV</label>
+        <input type="file" id="file-input" accept=".csv" webkitdirectory multiple onchange="$utils.uploadCSV(this.files);">
+    </div>
+    
+
+    <div id="next-display-option" hidden>
+        <label onclick="$utils.loadDisplayOptionSection();"> Are You Ready to Analyze? </label>
+    </div>
+
+    
+</section>

@@ -1,0 +1,26 @@
+@startuml CSV Upload
+start
+:folder upload;
+if (not contain CSV in folder) then (Yes)
+    :show alert;
+    end
+else (No)
+    :read indiv file;
+
+while (there is a file) 
+
+if (not csv) then (Yes)
+        :ignore;
+    elseif (start with AT) then (Yes)
+        :process for AT;
+    elseif (start with CT) then (Yes)
+        :process for CT;
+    elseif (start with DATA) then (Yes)
+        :process for DATA;
+    else (Other CSV)
+        :ignore;
+    endif
+        
+end while
+end
+@enduml

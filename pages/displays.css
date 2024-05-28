@@ -1,0 +1,90 @@
+
+
+*{
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace, sans-serif; /* kanit isnt supported by safari */
+}
+
+:root{
+    --main: #B5D8B6;
+    --btn-hover: #c2e3c5;
+    --bg: #d7f5d8;
+}
+
+body{
+    background-color: var(--bg);
+}
+
+.display{
+    width: 80%;
+    margin: auto;
+    padding-top: 5vh;
+}
+
+.display h2{
+    font-size: 30px;
+}
+
+
+.card-outer{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 5vh;
+    flex-wrap: wrap;
+}
+
+.card-container{
+    width: 30%;  
+    overflow: hidden;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--main);
+    margin-bottom: 25px;
+}
+
+.card-image{
+    width: 90%;
+    height: 70%;
+    padding: 1rem 0 1.5rem 0;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.card-container h1{
+    font-size: 35px;
+}
+
+.card-container:hover{
+    box-shadow: 0px 10px 8px #999;
+    background-color: var(--btn-hover);
+}
+
+.card-container p{
+    width: 80%;
+    padding-bottom: 2rem;
+}
+
+.card-link{
+    text-decoration: none;
+    color: black;
+}
+
+/*responsive to different screen size*/
+@media (max-width:768px) {
+    .card-container{
+        width: 45%;
+    }
+}
+
+@media (max-width:675px) {
+    .card-container{
+        width: 100%;
+    }
+    .card-outer{
+        flex-direction: column;
+        align-items: center;
+    }
+}

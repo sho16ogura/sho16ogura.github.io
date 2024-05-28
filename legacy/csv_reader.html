@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV File Reader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        #file-input {
+            display: none;
+        }
+        label {
+            cursor: pointer;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            margin-bottom: 10px;
+        }
+        label:hover {
+            background-color: #0056b3;
+        }
+        #file-input[type="files"] {
+            display: none;
+        }
+        .data-section {
+            display: none;
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+        .button-container button {
+            margin-right: 10px;
+        }
+    </style>
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src = "graph_generator.js"></script>
+
+</head>
+<body>
+
+<label for="file-input" id="choose-file-btn">Choose File</label>
+<input type="file" id="file-input" accept=".csv" webkitdirectory multiple>
+<div class="data-section" id="pass-data-section">
+    <h3>Pass Data:</h3>
+    <div id="pass-data"></div>
+</div>
+<div class="data-section" id="fail-data-section">
+    <h3>Fail Data:</h3>
+    <div id="fail-data"></div>
+</div>
+<table id="csv-table-pass"></table>
+<table id="csv-table-fail"></table>
+<div class="button-container">
+    <input type="text" id="displayattr" value="Pass">
+    <button id="analyze-mult-graphs-button">Analyze </button>
+    <button id="display-pass-fail-btn">Display Pass and Fail Data</button>
+    <button id="display-all-btn">Display Entire File</button>
+    <button id="display-pass-fail-graph-button">Display Pass Fail Graph</button>
+</div>
+<table id="csv-table-all" style="display: none;"></table>
+<canvas id="myChart"></canvas>
+
+<script>
+</script>
+
+</body>
+</html>
