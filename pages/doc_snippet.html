@@ -1,11 +1,19 @@
 <section class="text">
     <h2>Breakdown of the Website and its Workings:</h2>
     <ul>
-        <li class="pages-list">Front/ Home Page: A landing page with a navigation bar and a footer. It displays a welcome message and contains a link to get started with the CSV reader.</li>
-        <li class="pages-list">Upload Page: The home page directs to this page which allows the user to input a csv file or a folder with multiple files to read. After uploading is successful the page leads to the display option pages.</li>
-        <li class="pages-list">Display options Pages: This page shows various options for the user to choose how to read certatin datas from the csv they uploaded. It includes a Bar Graph, Pass and Fail, Analyzing etc.</li>
-        <li class="pages-list">Instruction Page: This page will hold instructions or guidelines for the user on how to use the website and its purpose.</li>
-        <li class="pages-list">Documentation Page: This is mostly for the team and Professor Gerten to look through to understand the workings and functionality of the project.</li>
-        <li class="pages-list">About the Team Page: A brief introduction to the Team and the project.</li>
+        <li class="pages-list">Front/ Home Page: A landing page with a navigation bar and a footer. It displays a welcome message and contains a "Get Started!" button that links to Upload Page</li>
+        <li class="pages-list">Upload Page: The home page directs to this page which allows the user to input a folder with multiple CSV files to read after pressing "Choose Folder with CSV". In the uploaded folder, user can contain only CSV files starting with AT and CT. After successful upload, user can press "Are You Ready to Analyze?" to move on to Display Options page. 
+        </li>
+        <li class="pages-list">Display options Page:This page shows various options for the user to choose how to analyze certain datas from the csv they uploaded. Users can go to Display Graphs Page by selecting "Bar Graph" card, Display Table Page by selecting "Display Table" card (not fully functioning), Trace Reader Page by "Trace Reader" (not fully functioning) and back to Upload Page by selecting "Back to Upload".</li>
+        <li class="pages-list">Display Graphs Page:User can visit this page by selecting "Bar Graph" card in Display Option Pages. This page allows users to visualize CSV data in graph format. Users can type variable name(s) they want to display (by default "Pass") and can compare the sum of the value between different files. The variable name(s) need to be precise. If users want to display multiple variables at the same time, they need to separate variables by a comma. After display, user can change the x-label. If users preess "use test name for x-axis", the x-axis will become test names like A0|\*|GE (\* means place holder for different kinds of test including A0|1|GE and A0|10|GE). If users press "use file name for x-axis", the x-axis will become file name like AT-A0_GE.csv for example. User can go back to Display Option Page by selecting "Back to Display Option" page.</li>
+                
+        <li class="pages-list">Display Table Page (not fully functioning): This page can display the content of a CSV file in table format. Users needs to select the file they want to see (e.g. AT-A0_GE.csv) and press "display table". The formatting is not well-formed now and especially there is a need for improvement in displaying files starting with CT.</li>
+
+        <li class="pages-list">Trace Reader Page (not fully functioning): This allow the user to choose the test and upload the corresponding trace file to evaluate. For now, this function can only evaluate test with "==" sign and can only read single-trace file.</li>
+
+        <li class="pages-list">Documentation Page: This explains the workings and functionality of the project. You can visit this page through header link.</li>
+        <li class="pages-list">About the Team Page: A brief introduction to the members contributed to the project.
+
+    
     </ul>
 </section>

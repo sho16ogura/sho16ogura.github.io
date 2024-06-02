@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV File Upload</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>CSV File Upload</h1>
+
+        <div class="upload-container">
+            <label for="csvFileInput" class="upload-label">
+                <!-- <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fpngtree.com%2Fso%2Fupload-icon&psig=AOvVaw1pCPQ44-zlFMNdfwn5BHIF&ust=1715740923748000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCPjAlJWPjIYDFQAAAAAdAAAAABAE" alt="Upload Icon"> -->
+                <span>Choose a CSV File</span>
+            </label>
+            <input type="file" id="csvFileInput" accept=".csv">
+        </div>
+
+        <button onclick="handleFile()">Upload</button>
+        
+        <div id="output" class="output-container"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

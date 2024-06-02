@@ -14,30 +14,36 @@
         </div>
     
 
-        <div class = "card-container">
+        <div class = "card-container" onclick="$utils.loadDataSection();">
             <img src="../images/card-images/p&f.jpeg" alt="Image1" class= "card-image" />    
-            <h1 class='card-title'>Pass/Fail Data</h1>
-            <p class='card-desc'>Display pass and fail data from the file uploaded.</p>
+            <h1 class='card-title'>Display Table</h1>
+            <p class='card-desc'>(Beta) Display pass and fail data from the file uploaded.</p>
         </div>
 
-        <div class = "card-container">
-            <img src="../images/card-images/analyze.jpg" alt="Image1" class= "card-image" />    
+        <!--
+        <div class = "card-container" onclick="$utils.displayCSVData();">
+            <img src="../images/card-images/analyze.jpeg"  alt="Image1" class= "card-image" />    
             <h1 class='card-title'>Analyze</h1>
             <p class='card-desc'>Analyze the data in the file uploaded.</p>
         </div>
+    
 
         <div class = "card-container">
             <img src="../images/card-images/p&f.jpeg" alt="Image1" class= "card-image" />    
             <h1 class='card-title'>Pass/Fail Graph</h1>
             <p class='card-desc'>Desc1</p>
         </div>
+        -->
 
-        <div class = "card-container">
-            <img src="analyze.jpg" alt="Image1" class= "card-image" />    
-            <h1 class='card-title'>Title1</h1>
-            <p class='card-desc'>Desc1</p>
+        <div class = "card-container" onclick="location.href='/pages/trace-reader.html';">
+            <img src="../images/card-images/analyze.jpg" alt="Image1" class= "card-image" />    
+            <h1 class='card-title'>Trace Reader</h1>
+            <p class='card-desc'>(Beta) Choose the test and upload the corresponding trace file to evaluate. </p>
+            <p class='card-desc'><b>BE CAREFUL!! If you click, you will lose folder data!!</b></p>
         </div>
-
+        
+    
+    
         <div class = "card-container" onclick="$utils.loadUploadSection();">
             <img src="../images/card-images/go-back.png" alt="Image1" class= "card-image" />    
             <h1 class='card-title'>Back to Upload</h1>

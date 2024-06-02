@@ -4,9 +4,10 @@
 
     <div>
         <input type="text" id="displayattr" value="Pass">
-        <button id="analyze-mult-graphs-button" onclick="$utils.displayGraph();">Analyze </button>
+        <button id="analyze-mult-graphs-button" onclick="$utils.displayGraph();">Analyze</button>
     
         <canvas id="myChart"></canvas>
+        <button id="toggle-xlabel" hidden onclick="$utils.toggleXlabel();$utils.displayGraph();">use test name for x-axis</button>
     </div>
     
 

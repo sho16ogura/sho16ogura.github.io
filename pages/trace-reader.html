@@ -1,0 +1,396 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSV File Reader</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+    }
+    #file-input {
+        margin-bottom: 20px;
+    }
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+</head>
+<body>
+<p>This function can evaluate single-trace file with the followings tests: A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, ASE1, ASE2, ASE3, ASE4, M10 </p>
+
+<button onclick="testName()">Enter test name</button>
+
+<p id="demo"></p>
+
+<label for="file-input" id="choose-file-btn">Choose Single-trace File</label>
+<input type="file" id="file-input" accept=".csv" accept = ".parquet">
+<div class="button-container">
+    <button id="display-all-btn">Evaluate</button>
+</div>
+<table id="csv-table-all" style="display: none;"></table>
+
+<a href="../index.html">Back to home page</a>
+
+
+
+<script>
+const value_list = [];
+const empty_list = [];
+const value = ["X1" , "PO", "H", "M", "PE", "D", "B", "A", "CE", "Y", "CO"];
+var text = "";
+var a0 = "(1)*{A}[T] + (-1)*{B}[T] + (1)*{CO}[T] + (3)*{M}[T] + (3)*{X1}[T] == (1)*{A}[Z] + (-1)*{B}[Z] + (1)*{CO}[Z] + (3)*{M}[Z] + (3)*{X1}[Z]";
+var a1 = "(-1)*{A}[T] + (1)*{B}[T] + (-7)*{CO}[T] + (6)*{D}[T] + (3)*{H}[T] + (-3)*{M}[T] + (6)*{Y}[T] == (-1)*{A}[Z] + (1)*{B}[Z] + (-7)*{CO}[Z] + (6)*{D}[Z] + (3)*{H}[Z] + (-3)*{M}[Z] + (6)*{Y}[Z]";
+var a2 = "(1)*{CE}[T] + (1)*{CO}[T] + (-1)*{Y}[T] == (1)*{CE}[Z] + (1)*{CO}[Z] + (-1)*{Y}[Z]";
+var a3 = "(-1)*{A}[T] + (1)*{B}[T] + (-1)*{CO}[T] + (-3)*{M}[T] + (3)*{R|Reaction1}[T] == (-1)*{A}[Z] + (1)*{B}[Z] + (-1)*{CO}[Z] + (-3)*{M}[Z] + (3)*{R|Reaction1}[Z]";
+var a4 = "(-1)*{A}[T] + (1)*{B}[T] + (-1)*{CO}[T] + (-3)*{M}[T] + (3)*{PO}[T] + (6)*{R|Reaction2}[T] == (-1)*{A}[Z] + (1)*{B}[Z] + (-1)*{CO}[Z] + (-3)*{M}[Z] + (3)*{PO}[Z] + (6)*{R|Reaction2}[Z]";
+var a5 = "(-1)*{A}[T] + (1)*{B}[T] + (-1)*{CO}[T] + (-3)*{M}[T] + (6)*{PE}[T] + (3)*{PO}[T] + (6)*{R|Reaction3}[T] + (6)*{R|Reaction4}[T] == (-1)*{A}[Z] + (1)*{B}[Z] + (-1)*{CO}[Z] + (-3)*{M}[Z] + (6)*{PE}[Z] + (3)*{PO}[Z] + (6)*{R|Reaction3}[Z] + (6)*{R|Reaction4}[Z]";
+var a6 = "(1)*{CO}[T] + (-1)*{D}[T] + (1)*{R|Reaction5}[T] + (-1)*{Y}[T] == (1)*{CO}[Z] + (-1)*{D}[Z] + (1)*{R|Reaction5}[Z] + (-1)*{Y}[Z]";
+var a7 = "(-1)*{A}[T] + (1)*{B}[T] + (-1)*{CO}[T] + (3)*{R|Reaction6}[T] == (-1)*{A}[Z] + (1)*{B}[Z] + (-1)*{CO}[Z] + (3)*{R|Reaction6}[Z]";
+var a8 = "(-1)*{A}[T] + (2)*{B}[T] + (-1)*{CO}[T] + (2)*{R|Reaction7}[T] == (-1)*{A}[Z] + (2)*{B}[Z] + (-1)*{CO}[Z] + (2)*{R|Reaction7}[Z]";
+var a9 = "(-1)*{CO}[T] + (1)*{R|Reaction10}[T] + (-1)*{R|Reaction8}[T] + (1)*{Y}[T] == (-1)*{CO}[Z] + (1)*{R|Reaction10}[Z] + (-1)*{R|Reaction8}[Z] + (1)*{Y}[Z]";
+var a10 = "(1)*{CO}[T] + (1)*{R|Reaction11}[T] + (-1)*{R|Reaction9}[T] == (1)*{CO}[Z] + (1)*{R|Reaction11}[Z] + (-1)*{R|Reaction9}[Z]";
+var ase1 = "{Y}[T] == {X1}[Z] / 2";
+var ase2 = "{Y}[T] == 3 * {X1}[Z] + 1";
+var ase3 = "{Y}[T] == 0";
+var ase4 = "{PO}[T] + {PE}[T] == 1";
+var m10 = "{M}[T] == 0";
+
+var leftSide;
+var oldLeft;
+var rightSide;
+var oldRight;
+
+var passCount = 0;
+var failCount = 0;
+var evaPass = 0;
+var evaFail = 0;
+var eva = false;
+var equa = false;
+var smaller = false;
+var greater = false;
+var any = false;
+var twoSide = false;
+var x1 = 0;
+var b = 0;
+var a = 0;
+var po = 0;
+var h = 0;
+var m = 0;
+var pe = 0;
+var d = 0;
+var ce = 0;
+var y = 0;
+var co = 0;
+var r1 = 0;
+var r2 = 0;
+var r3 = 0;
+var r4 = 0;
+var r5 = 0;
+var r6 = 0;
+var r7 = 0;
+var r8 = 0;
+var r9 = 0;
+var r10 = 0;
+var r11 = 0;
+
+
+function testName(){
+    var name = prompt("Please choose your test")
+    if (name.toLowerCase() == "a0"){
+        text = a0;
+    }
+    else if (name.toLowerCase() == "a1"){
+        text = a1;
+    }
+    else if (name.toLowerCase() == "a2"){
+        text = a2;
+    }
+    else if (name.toLowerCase() == "a3"){
+        text = a3;
+    }
+    else if (name.toLowerCase() == "a4"){
+        test = a4;
+    }
+    else if (name.toLowerCase() == "a5"){
+        text = a5;
+    }
+    else if (name.toLowerCase() == "a6"){
+        text = a6;
+    }
+    else if (name.toLowerCase() == "a7"){
+        text = a7;
+    }
+    else if (name.toLowerCase() == "a8"){
+        text = a8;
+    }
+    else if (name.toLowerCase() == "a9"){
+        text = a9;
+    }
+    else if (name.toLowerCase() == "a10"){
+        text = a10;
+    }
+    else if (name.toLowerCase() == "ase1"){
+        text = ase1;
+    }
+    else if (name.toLowerCase() == "ase2"){
+        text = ase2;
+    }
+    else if (name.toLowerCase() == "ase3"){
+        text = ase3;
+    }
+    else if (name.toLowerCase() == "ase4"){
+        text = ase4;
+    }
+    else if (name.toLowerCase() == "m10"){
+        text = m10
+    }
+    else alert("Please enter a valid test")
+
+    document.getElementById("demo").innerHTML = text;
+}
+
+
+//checking(text)
+//console.log(equa, smaller, greater, twoSide, any)
+//text = replaceBS(text)
+//sliceText(text)
+
+
+
+document.getElementById('choose-file-btn').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevents the default behavior of label click event
+    document.getElementById('file-input').click();
+});
+
+document.getElementById('display-all-btn').addEventListener('click', function() {
+    checking(text)
+    text = replaceBS(text)
+    sliceText(text)
+    console.log(text)
+    var fileInput = document.getElementById('file-input');
+    if (!fileInput.files[0]) {
+        alert('Please select a CSV file.');
+        return;
+    }
+    var reader = new FileReader();
+    reader.onload = function(event) {
+        var csv = event.target.result;
+        var rows = csv.split('\n');
+        var table = document.getElementById('csv-table-all');
+        table.innerHTML = '';
+        for (var i = 0; i < rows.length; i++) {
+            var cells = rows[i].split(',');
+            var row = table.insertRow();
+            for (var k = 0; k < cells.length; k++) {
+                var cell = row.insertCell();
+                cell.textContent = cells[k];
+                if (table.rows[0].cells[k].textContent == "Times" && cell.textContent == "0"){
+                    empty_list.push(i)
+                }
+                
+            }
+        }
+        //console.log(table.rows[value_list[0]].cells[0].textContent)
+        //console.log(value_list)
+        var headerCell = table.rows[0]
+        for (var n = 1; n < rows.length-1; n++){
+            for (var i = 0; i < cells.length; i++){
+                var cells = rows[0].split(',')
+                if (value.includes(headerCell.cells[i].textContent)){
+                    //empty_list.push(table.rows[1].cells[i].textContent)
+                    if (headerCell.cells[i].textContent == "X1"){
+                        x1 = table.rows[n].cells[i].textContent
+                    } else if (headerCell.cells[i].textContent == "A"){
+                        a = table.rows[n].cells[i].textContent
+                    } else if (headerCell.cells[i].textContent == "B"){
+                        b = table.rows[n].cells[i].textContent
+                    } else if (headerCell.cells[i].textContent == "PO"){
+                        po = table.rows[n].cells[i].textContent
+                    } else if (headerCell.cells[i].textContent == "H"){
+                        h = table.rows[n].cells[i].textContent
+                    } else if (headerCell.cells[i].textContent == "M"){
+                        m = table.rows[n].cells[i].textContent
+                    } else if (headerCell.cells[i].textContent == "PE"){
+                        pe = table.rows[n].cells[i].textContent
+                    } else if (headerCell.cells[i].textContent == "D"){
+                        d = table.rows[n].cells[i].textContent
+                    } else if (headerCell.cells[i].textContent == "CE"){
+                        ce = table.rows[n].cells[i].textContent
+                    } else if (headerCell.cells[i].textContent == "Y"){
+                        y = table.rows[n].cells[i].textContent
+                    } else if (headerCell.cells[i].textContent == "CO"){
+                        co = table.rows[n].cells[i].textContent
+                    } else if (headerCell.cells[i].textContent == "R|Reaction1"){
+                        r1 = table.rows[n].cells[i].textContent
+                    } else if (headerCell.cells[i].textContent == "R|Reaction2"){
+                        r2 = table.rows[n].cells[i].textContent
+                    } else if (headerCell.cells[i].textContent == "R|Reaction3"){
+                        r3 = table.rows[n].cells[i].textContent
+                    } else if (headerCell.cells[i].textContent == "R|Reaction4"){
+                        r4 = table.rows[n].cells[i].textContent
+                    } else if (headerCell.cells[i].textContent == "R|Reaction5"){
+                        r5 = table.rows[n].cells[i].textContent
+                    } else if (headerCell.cells[i].textContent == "R|Reaction6"){
+                        r6 = table.rows[n].cells[i].textContent
+                    } else if (headerCell.cells[i].textContent == "R|Reaction7"){
+                        r7 = table.rows[n].cells[i].textContent
+                    } else if (headerCell.cells[i].textContent == "R|Reaction8"){
+                        r8 = table.rows[n].cells[i].textContent
+                    } else if (headerCell.cells[i].textContent == "R|Reaction9"){
+                        r9 = table.rows[n].cells[i].textContent
+                    } else if (headerCell.cells[i].textContent == "R|Reaction10"){
+                        r10 = table.rows[n].cells[i].textContent
+                    } else if (headerCell.cells[i].textContent == "R|Reaction11"){
+                        r11 = table.rows[n].cells[i].textContent
+                    }
+                }
+                if (table.rows[n].cells[i].textContent.includes("Evaluation")){
+                    eva = true;
+                }
+            }
+            //console.log(co, x1, y, h, m, po, ce, d, pe, a, b)
+            if (n == empty_list[0]){
+                rightSide = oldRight
+                rightSide = replaceAll(rightSide)
+            }
+            leftSide = replaceAll(leftSide)
+            if (eval(leftSide) == eval(rightSide)){
+                passCount++
+                if (eva == true){
+                    evaPass++
+                    eva = false
+                }
+            }
+            if (eval(leftSide) != eval(rightSide)){
+                failCount++
+                if (eva == true){
+                    evaFail++
+                    eva = false
+                }
+            }
+            //console.log(eval(leftSide) == eval(rightSide))
+            leftSide = oldLeft
+            
+        }
+        //console.log(evaFail, evaPass)
+        //console.log("The total number of passed test is: " + passCount , "\nThe total number of failed test is: " + failCount)
+        //console.log(empty_list)
+        document.write("The total number of passed test is: " + passCount);
+        document.write ("<br>");
+        document.write("The total number of failed test is: " + failCount)
+        document.write ("<br>");
+        document.write("The total number of failed evaluation is: " + evaFail)
+        document.write ("<br>");
+        document.write("The total number of passed evaluation is: " + evaPass)
+        table.style.display = 'block';
+    };
+    reader.readAsText(fileInput.files[0]);
+});
+
+
+function sliceText(stringData){
+    if (equa == true){
+        leftSide = text.slice(0, text.indexOf("==")-1)
+        rightSide = text.slice(text.indexOf("==")+2)
+        oldRight = rightSide
+        oldLeft = leftSide
+    }
+    else if (smaller == true){
+        leftSide = text.slice(0, text.indexOf("<")-1)
+        rightSide = text.slice(text.indexOf("<")+1)
+        oldRight = rightSide
+        oldLeft = leftSide
+    }
+    else if (greater == true){
+        leftSide = text.slice(0, text.indexOf(">")-1)
+        rightSide = text.slice(text.indexOf(">")+1)
+        oldRight = rightSide
+        oldLeft = leftSide
+    }
+}
+
+function checking(stringData){
+    if (stringData.includes("Z")){
+        twoSide = true
+    }
+    if (stringData.includes("any")){
+        equa = false
+        smaller = false
+        greater = false
+        any = true
+    }
+    else if (stringData.includes("==")){
+        equa = true
+        smaller = false
+        greater = false
+    }
+    else if (stringData.includes(">")){
+        greater = true
+        equa = false
+        smaller = false
+    }
+    else if (stringData.includes("<")){
+        smaller = true
+        equa = false
+        greater = false
+    }
+}
+
+function replaceBS(stringData){
+    stringData = stringData.replace(/any/, "")
+    stringData = stringData.replace(/{/gi,"")
+    stringData = stringData.replace(/}/gi,"")
+
+    while (stringData.includes("R|")){
+        stringData = stringData.replace("R|", "")
+    }
+    while (stringData.includes("[T]")){
+        stringData = stringData.replace("[T]", "")
+    }
+    while (stringData.includes("[Z]")){
+        stringData = stringData.replace("[Z]", "")
+    }
+    return stringData
+}
+    
+
+function replaceAll(stringData){
+    stringData = stringData.replace(/x1/gi, x1)
+    stringData = stringData.replace(/h/gi, h)
+    stringData = stringData.replace(/m/gi, m)
+    stringData = stringData.replace(/pe/gi, pe)
+    stringData = stringData.replace(/d/gi, d)
+    stringData = stringData.replace(/b/gi, b)
+    stringData = stringData.replace(/A/g, a)
+    stringData = stringData.replace(/ce/gi, ce)
+    stringData = stringData.replace(/y/gi, y)
+    stringData = stringData.replace(/co/gi, co)
+    stringData = stringData.replace(/Reaction1/gi, r1)
+    stringData = stringData.replace(/Reaction2/gi, r2)
+    stringData = stringData.replace(/Reaction3/gi, r3)
+    stringData = stringData.replace(/Reaction4/gi, r4)
+    stringData = stringData.replace(/Reaction5/gi, r5)
+    stringData = stringData.replace(/Reaction6/gi, r6)
+    stringData = stringData.replace(/Reaction7/gi, r7)
+    stringData = stringData.replace(/Reaction8/gi, r8)
+    stringData = stringData.replace(/Reaction9/gi, r9)
+    stringData = stringData.replace(/Reaction10/gi, r10)
+    stringData = stringData.replace(/Reaction11/gi, r11)
+    return stringData
+}
+
+</script>
+
+</body>
+</html>
